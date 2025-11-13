@@ -6,15 +6,19 @@ import {z} from 'zod'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { Card } from '@/components/ui/card'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { RouteSignIn} from './../helpers/RouteName';
+import { getEnv } from '@/helpers/getEnv'
+
 
 
 
 function SignUp() {
 
+  const navigate = useNavigate()
+
   const formSchema = z.object({
-    name: z.string().min(3, 'name must be at least 3 character long.'),
+    name: z.string().min(3, 'Name must be at least 3 character long.'),
     email: z.string().email(),
     password: z.string().min(8, 'Password must be at least 8 character long.'),
     confirmPassword: z.string().refine((data)=> data.password === data.confirmPassword, 'Password and confirm password should be same.')
@@ -30,10 +34,24 @@ function SignUp() {
       },
     })
   
-    function onSubmit(values) {
-      // Do something with the form values.
-      // ✅ This will be type-safe and validated.
-      console.log(values)
+    async function onSubmit(values) {
+      try {
+        const response = await fetch(`${getEnv('VITE_API_BASE_URL')}/auth/register`,{
+          method: 'post',
+          headers: {'Content-type' : 'application/json'},
+          body: JSON.stringify(values)
+        })
+        if (!response.ok) {
+
+        }
+
+        navigate(RouteSignIn)
+
+
+      } catch(error) {
+
+      }
+      
     }
 
   return (
@@ -83,7 +101,7 @@ function SignUp() {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your password" {...field} />
+                <Input type='password' placeholder="Enter your password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,7 +117,7 @@ function SignUp() {
             <FormItem>
               <FormLabel>Confirm Password</FormLabel>
               <FormControl>
-                <Input placeholder="Confirm your password" {...field} />
+                <Input type='password' placeholder="Confirm your password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
