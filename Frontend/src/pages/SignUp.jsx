@@ -9,6 +9,7 @@ import { Card } from '@/components/ui/card'
 import { Link, useNavigate } from 'react-router-dom'
 import { RouteSignIn} from './../helpers/RouteName';
 import { getEnv } from '@/helpers/getEnv'
+import { showToast } from '@/helpers/showToast'
 
 
 
@@ -41,9 +42,14 @@ function SignUp() {
           headers: {'Content-type' : 'application/json'},
           body: JSON.stringify(values)
         })
+        const data = await response.json()
         if (!response.ok) {
-
+          showToast("error", data.message || "Something went wrong!");
+          // showToast('error')
+          return;
         }
+
+        showToast("success", "Account created successfully!");
 
         navigate(RouteSignIn)
 

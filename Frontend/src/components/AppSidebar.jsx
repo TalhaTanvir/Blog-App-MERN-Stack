@@ -38,24 +38,28 @@ function AppSidebar() {
                       <Link to="/">Home</Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
-                <SidebarMenuItem>
+
                   <SidebarMenuItem>
                     <SidebarMenuButton>
                       <BiCategoryAlt />
                       <Link to="/">Categories</Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
+
+                <SidebarMenuItem>
                     <SidebarMenuButton>
                       <GrBlog />
                       <Link to="/">Blogs</Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
+
                 <SidebarMenuItem>
                     <SidebarMenuButton>
                       <FaRegComments />
                       <Link to="/">Comments</Link>
                     </SidebarMenuButton>
                 </SidebarMenuItem>
+                
                 <SidebarMenuItem>
                     <SidebarMenuButton>
                       <LuUsers />
